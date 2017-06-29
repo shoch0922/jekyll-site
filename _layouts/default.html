@@ -1,0 +1,78 @@
+---
+# post表示用のレイアウトファイル
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{ page.title }}</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+{% include header.html %}
+<div class="container">
+  <div class="col-xs-8">
+    {{ content }}
+
+    {% if page.previous %}
+    <div class="pull-left">
+      <a href="{{ page.previous.url }}">← {{ page.previous.title }}</a>
+    </div>
+    {% endif %}
+    {% if page.next %}
+    <div class="pull-right">
+      <a href="{{ page.next.url }}">{{ page.next.title }} →</a>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="col-xs-4">
+    <div class="archive">
+      <h3>記事一覧</h3>
+      <hr>
+      <ul>
+        {% for post in site.posts %}
+          <li>
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="category">
+      {% for category in site.categories %}
+        <h3>{{ category[0] }}一覧</h3>
+      <hr>
+      <ul>
+        {% for posts in category %}
+          {% for post in posts %}
+            {% if post.title != nil %}
+              <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </ul>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="container footer">
+  {% include footer.html %}
+</div>
+</body>
+</html>
